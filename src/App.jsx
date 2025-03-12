@@ -8,7 +8,6 @@ function App() {
   const [favoritos, setFavoritos] = useState([]);
   const [error, setError] = useState("");
 
-  // Obtener los primeros 20 Pokémon al cargar la página
   useEffect(() => {
     async function obtenerPokemonesIniciales() {
       try {
@@ -33,7 +32,7 @@ function App() {
   useEffect(() => {
     async function buscarPokemon() {
       if (busqueda.trim() === "") return;
-      setError(""); // Limpiar el error antes de hacer una nueva búsqueda
+      setError("");
       try {
         const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${busqueda.toLowerCase()}`);
         if (!respuesta.ok) throw new Error("Pokémon no encontrado");
@@ -45,13 +44,13 @@ function App() {
       }
     }
 
-    buscarPokemon(); // Llamada inmediata sin timeout
+    buscarPokemon();
   }, [busqueda]);
 
   function agregarFavorito(pokemon) {
     setFavoritos((prev) =>
       prev.some((fav) => fav.id === pokemon.id)
-        ? prev.filter((fav) => fav.id !== pokemon.id) // Eliminar si ya está en favoritos
+        ? prev.filter((fav) => fav.id !== pokemon.id)
         : [...prev, pokemon]
     );
   }
